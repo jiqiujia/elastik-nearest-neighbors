@@ -73,7 +73,7 @@ public class AknnRestAction extends BaseRestHandler {
         controller.registerHandler(POST, NAME_CREATE, this);
     }
 
-    @Override
+    // @Override
     public String getName() {
         return NAME;
     }
