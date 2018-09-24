@@ -323,7 +323,7 @@ images instead of single images. This is a standard deep learning optimization.
 ### Elasticsearch Versions
 
 - The plugin was developed on Elasticsearch version 6.2.4.
-- User [mingruimingrui has a fork for version 5.6.5](https://github.com/mingruimingrui/elastik-nearest-neighbors).
+- User [mingruimingrui has a fork fork for version 5.6.6](https://github.com/mingruimingrui/elastik-nearest-neighbors).
 - User [mattiasarro has a fork for version 6.3](https://github.com/mattiasarro/elastik-nearest-neighbors)
 
 ## Helpful Resources
