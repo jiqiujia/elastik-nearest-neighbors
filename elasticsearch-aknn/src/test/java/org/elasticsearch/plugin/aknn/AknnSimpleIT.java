@@ -40,7 +40,7 @@ public class AknnSimpleIT extends ESIntegTestCase {
 
     /**
      * Test that the plugin was installed correctly by hitting the _cat/plugins endpoint.
-     * @throws IOException
+     * @throws IOException if installation was incorrect
      */
     public void testPluginInstallation() throws IOException {
         Response response = restClient.performRequest("GET", "_cat/plugins");
