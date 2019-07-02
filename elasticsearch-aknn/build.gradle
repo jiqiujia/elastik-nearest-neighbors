@@ -1,4 +1,3 @@
-import org.elasticsearch.gradle.test.RestIntegTestTask
 
 buildscript {
   repositories {
