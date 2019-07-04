@@ -70,6 +70,16 @@ public class LshModel {
             // Compute the normal vectors for each pair of vectors.
             normal = vectorsB.subtract(midpoint);
             normals.add(normal);
+            normalsTransposed.add(normal.transpose());
+        }
+
+        for (int i = 0; i < nbTables; i++) {
+            RealMatrix tnormal = normals.get(i);
+            RealMatrix tmidpoint = midpoints.get(i);
+            RealVector threshold = new ArrayRealVector(nbBitsPerTable);
+            for (int j = 0; j < nbBitsPerTable; j++)
+                threshold.setEntry(j, tnormal.getRowVector(j).dotProduct(tmidpoint.getRowVector(j)));
+            thresholds.add(threshold);
         }
 
     }

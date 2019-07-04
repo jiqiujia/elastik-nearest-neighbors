@@ -18,16 +18,17 @@ import pdb
 import random
 import requests
 import sys
+import io
 
 
 def iter_local_docs(docs_path, skip=0, stop=sys.maxsize):
     """Iterate over docs stored in a local file.
     Docs should be JSON formatted, one per line in the file."""
-    for i, line in enumerate(open(docs_path)):
+    for i, line in enumerate(io.open(docs_path, encoding='utf-8')):
         if i < skip:
             continue
         elif i < stop:
-            yield json.loads(line)
+            yield json.loads(line, encoding='utf-8')
         else:
             break
 
@@ -377,7 +378,7 @@ def aknn_benchmark(es_hosts, docs_path, metrics_dir, nb_dimensions, nb_batch, nb
                 # Write results to file.
                 s1 = "Saving metrics to %s" % get_metrics_path(metrics)
                 print("%s\n%s" % ("-" * len(s1), s1))
-                with open(get_metrics_path(metrics), "w") as fp:
+                with io.open(get_metrics_path(metrics), "w", encoding='utf-8') as fp:
                     json.dump(metrics, fp)
 
                 nb_tests_done += 1
@@ -397,7 +398,7 @@ if __name__ == "__main__":
 
     sp = sp_base.add_parser("create")
     sp.set_defaults(which="create")
-    sp.add_argument("docs_path", type=str)
+    sp.add_argument("--docs_path", type=str)
     sp.add_argument("--sample_prob", type=float, default=0.3)
     sp.add_argument("--sample_seed", type=int, default=865)
     sp.add_argument("--es_index", type=str, default="aknn_models")
@@ -410,7 +411,7 @@ if __name__ == "__main__":
 
     sp = sp_base.add_parser("index")
     sp.set_defaults(which="index")
-    sp.add_argument("docs_path", type=str)
+    sp.add_argument("--docs_path", type=str)
     sp.add_argument("--aknn_uri", type=str, required=True)
     sp.add_argument("--es_index", type=str, required=True)
     sp.add_argument("--es_type", type=str, required=True)
@@ -420,7 +421,7 @@ if __name__ == "__main__":
 
     sp = sp_base.add_parser("benchmark")
     sp.set_defaults(which="benchmark")
-    sp.add_argument("docs_path", type=str)
+    sp.add_argument("--docs_path", type=str)
     sp.add_argument("--metrics_dir", type=str, default="metrics")
     sp.add_argument("--nb_dimensions", type=int, default=25)
     sp.add_argument("--nb_eval", type=int, default=500)
@@ -437,3 +438,6 @@ if __name__ == "__main__":
 
     if action == "benchmark":
         aknn_benchmark(**args)
+        
+    if action == "index":
+        aknn_index(**args)
